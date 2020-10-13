@@ -1,0 +1,4 @@
+active,I am active
+inactive,I am not active
+acked,and acknowledged
+not_acked,and not acknowledged

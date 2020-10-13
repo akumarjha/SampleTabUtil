@@ -1,0 +1,26 @@
+include ${API_ROOT}/Manager.mk
+
+INCLUDE = -I. -I ${API_ROOT}/include/Basics/Variables \
+              -I ${API_ROOT}/include/Basics/Utilities \
+              -I ${API_ROOT}/include/Basics/NoPosix   \
+              -I ${API_ROOT}/include/Basics/DpBasics
+
+LIBS = ${MANAGER_LIBS}
+
+OBJS = 
+
+OFILES = SampleTabUtil.o
+
+TabUtilEx.so : $(OFILES) 
+	@rm -f addVerInfo.o
+	@$(MAKE) -f Makefile.api addVerInfo.o
+	@echo Making target $@
+	@$(SHLIB) -o TabUtilEx.so $(OFILES) addVerInfo.o $(OBJS) $(LIBS)
+
+clean:
+	@rm -f $(OFILES) TabUtilEx.so
+
+addVerInfo.cxx: ${API_ROOT}/addVerInfo.cxx
+	@cp -f ${API_ROOT}/addVerInfo.cxx addVerInfo.cxx
+
+addVerInfo.o: $(OFILES) addVerInfo.cxx
